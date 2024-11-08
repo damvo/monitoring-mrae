@@ -2,7 +2,7 @@ name: Monitor MRAE Website
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 8 * * 1'  # Tous les lundis à 8h00
   workflow_dispatch:
 
 jobs:
@@ -21,11 +21,6 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    
-    - name: List files for debugging
-      run: |
-        pwd
-        ls -la
     
     - name: Install dependencies
       run: |
