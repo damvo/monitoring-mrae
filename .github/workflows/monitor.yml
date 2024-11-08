@@ -2,20 +2,30 @@ name: Monitor MRAE Website
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Exécution toutes les 6 heures
-  workflow_dispatch:  # Permet l'exécution manuelle
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
+    
+    - name: List files for debugging
+      run: |
+        pwd
+        ls -la
     
     - name: Install dependencies
       run: |
@@ -33,6 +43,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add previous_results.json
+        git add previous_results.json || true
         git commit -m "Update results" || echo "No changes to commit"
-        git push
+        git push || echo "No changes to push"
