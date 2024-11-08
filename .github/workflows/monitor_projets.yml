@@ -2,7 +2,7 @@ name: Monitor Projets-Environnement Website
 
 on:
   schedule:
-    - cron: '30 */6 * * *'  # Exécution toutes les 6 heures (30 minutes après l'autre script)
+    - cron: '30 8 * * 1'  # Tous les lundis à 8h30
   workflow_dispatch:
 
 jobs:
